@@ -7,9 +7,16 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 
 public class Deposit extends JFrame {
@@ -19,9 +26,12 @@ public class Deposit extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	private PreparedStatement ps;
+	private ResultSet rs;
+	DBConnect db = new DBConnect();
 
 	//Launch the application
-	public static void main(String[] args) {
+	public static void NewScreen() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -36,7 +46,7 @@ public class Deposit extends JFrame {
 
 	//Create the frame.
 	public Deposit() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 1224, 730);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -60,6 +70,13 @@ public class Deposit extends JFrame {
 		button.setBackground(Color.WHITE);
 		button.setBounds(0, 427, 245, 39);
 		panel_1.add(button);
+		button.addActionListener((ActionListener) new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AdminPage adminPage = new AdminPage();
+				adminPage.NewScreen();
+				dispose();
+			}
+		});
 		
 		textField = new JTextField("Deposit");
 		textField.setBounds(0, 0, 245, 39);
@@ -79,12 +96,26 @@ public class Deposit extends JFrame {
 		button_2.setBackground(Color.WHITE);
 		button_2.setBounds(0, 221, 245, 39);
 		panel_1.add(button_2);
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Withdraw withdrawPage = new Withdraw();
+				withdrawPage.NewScreen();
+				dispose();
+			}
+		});
 		
 		JButton button_3 = new JButton("Contact us");
 		button_3.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		button_3.setBackground(Color.WHITE);
 		button_3.setBounds(0, 290, 245, 39);
 		panel_1.add(button_3);
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Contact contactPage = new Contact();
+				contactPage.NewScreen();
+				dispose();
+			}
+		});
 		
 		JButton btnLogOut = new JButton("Log Out");
 		btnLogOut.setForeground(Color.RED);
@@ -92,17 +123,52 @@ public class Deposit extends JFrame {
 		btnLogOut.setBackground(Color.WHITE);
 		btnLogOut.setBounds(0, 536, 245, 39);
 		panel_1.add(btnLogOut);
+		btnLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Menu menuPage = new Menu();
+				menuPage.NewScreen();
+				dispose();
+			}
+		});
 		
 		JButton btnMyAccount = new JButton("My Account");
 		btnMyAccount.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		btnMyAccount.setBackground(Color.WHITE);
 		btnMyAccount.setBounds(0, 135, 245, 39);
 		panel_1.add(btnMyAccount);
+		btnMyAccount.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AdminPage adminPage = new AdminPage();
+				adminPage.NewScreen();
+				dispose();
+			}
+		});
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBounds(0, 0, 245, 675);
 		panel_1.add(lblNewLabel_1);
 		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\brkdn\\Desktop\\men\u00FC.jpg"));
+		
+		JButton btnSave = new JButton("Save");
+		btnSave.setFont(new Font("Dialog", Font.PLAIN, 25));
+		btnSave.setBackground(Color.WHITE);
+		btnSave.setBounds(0, 356, 245, 39);
+		panel_1.add(btnSave);
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					ps = db.getCon().prepareStatement("UPDATE bank SET balance=(balance+?) WHERE username=?;");
+					ps.setInt(1, Integer.parseInt(textField_2.getText()));
+					ps.setString(2, textField_1.getText());
+					ps.execute();
+					
+					JOptionPane.showMessageDialog(null, "Deposit successfull");
+				}
+				catch(SQLException sql) {
+					sql.getCause().printStackTrace();
+				}
+			}
+		});
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setLayout(null);
@@ -110,11 +176,11 @@ public class Deposit extends JFrame {
 		panel_3.setBounds(366, 33, 709, 84);
 		panel.add(panel_3);
 		
-		JLabel label = new JLabel("Total Balance :");
-		label.setForeground(Color.BLACK);
-		label.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		label.setBounds(21, 26, 637, 31);
-		panel_3.add(label);
+		JLabel lblUsername = new JLabel("Username :");
+		lblUsername.setForeground(Color.BLACK);
+		lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblUsername.setBounds(21, 26, 637, 31);
+		panel_3.add(lblUsername);
 		
 		textField_1 = new JTextField();
 		textField_1.setBounds(202, 26, 456, 31);

@@ -43,7 +43,7 @@ public class AdminPage extends JFrame {
     //Create the frame
     public AdminPage() {
         setTitle("Truncate");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setBounds(100, 100, 1222, 719);
         contentPane = new JPanel();
         contentPane.setBackground(Color.DARK_GRAY);
@@ -109,13 +109,16 @@ public class AdminPage extends JFrame {
         		{null, null, null, null, null, null, null},
         	},
         	new String[] {
-        		"Name", "Surname", "NationalityNumber", "E-mail", "PhoneNumber", "Username", "Balance"
+        		"Name", "Surname", "Account Type", "E-mail", "Phone Number", "Username", "Balance"
         	}
         ));
         
-        button = new JButton("Edit");
+        button = new JButton("Withdraw");
         button.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		Withdraw withdrawPage = new Withdraw();
+        		withdrawPage.NewScreen();
+        		dispose();
         	}
         });
         button.setFont(new Font("Tahoma", Font.PLAIN, 25));
@@ -123,16 +126,26 @@ public class AdminPage extends JFrame {
         button.setBounds(628, 226, 245, 39);
         contentPane.add(button);
         
-        button_1 = new JButton("Delete");
+        button_1 = new JButton("Deposit");
         button_1.setFont(new Font("Tahoma", Font.PLAIN, 25));
         button_1.setBackground(Color.WHITE);
         button_1.setBounds(30, 226, 245, 39);
         contentPane.add(button_1);
+        button_1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		Deposit depositPage = new Deposit();
+        		depositPage.NewScreen();
+        		dispose();
+        	}
+        });
         
         button_2 = new JButton("Exit");
         button_2.setForeground(Color.RED);
         button_2.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		Menu menuPage = new Menu();
+        		menuPage.NewScreen();
+        		dispose();
         	}
         });
         button_2.setFont(new Font("Tahoma", Font.PLAIN, 25));
@@ -140,9 +153,12 @@ public class AdminPage extends JFrame {
         button_2.setBounds(919, 226, 245, 39);
         contentPane.add(button_2);
         
-        button_3 = new JButton("Save");
+        button_3 = new JButton("Contact");
         button_3.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		Contact contactPage = new Contact();
+        		contactPage.NewScreen();
+        		dispose();
         	}
         });
         button_3.setFont(new Font("Tahoma", Font.PLAIN, 25));

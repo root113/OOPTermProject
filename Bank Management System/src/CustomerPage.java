@@ -4,6 +4,7 @@ import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
@@ -19,11 +20,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class CustomerPage extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private PreparedStatement ps;
+	private ResultSet rs;
+	DBConnect db = new DBConnect();
+	private JTextField textField_1;
+	private JTextField textField_2;
 
 	//Launch the application
 	public static void NewScreen() {
@@ -41,7 +49,7 @@ public class CustomerPage extends JFrame {
 
 	//Create the frame
 	public CustomerPage() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 1224, 730);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.DARK_GRAY);
@@ -58,12 +66,16 @@ public class CustomerPage extends JFrame {
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Click log out to go back.");
 			}
 		});
 		
 		JButton btnDeposit = new JButton("Deposit");
 		btnDeposit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				DepositCustomer customerPage = new DepositCustomer();
+				customerPage.NewScreen();
+				dispose();
 			}
 		});
 		btnDeposit.setFont(new Font("Tahoma", Font.PLAIN, 25));
@@ -86,8 +98,9 @@ public class CustomerPage extends JFrame {
 		JButton button = new JButton("Withdraw");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-			
+				WithdrawCustomer withdrawPage = new WithdrawCustomer();
+				withdrawPage.NewScreen();
+				dispose();
 			}
 		});
 		button.addMouseListener(new MouseAdapter() {
@@ -105,6 +118,13 @@ public class CustomerPage extends JFrame {
 		button_6.setBackground(Color.WHITE);
 		button_6.setBounds(0, 387, 245, 39);
 		panel.add(button_6);
+		button_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ContactCustomer contactCustomerPage = new ContactCustomer();
+				contactCustomerPage.NewScreen();
+				dispose();
+			}
+		});
 		
 		JButton btnLogOut = new JButton("Log Out");
 		btnLogOut.setForeground(Color.RED);
@@ -112,6 +132,13 @@ public class CustomerPage extends JFrame {
 		btnLogOut.setBackground(Color.WHITE);
 		btnLogOut.setBounds(0, 593, 245, 39);
 		panel.add(btnLogOut);
+		btnLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Menu menuPage = new Menu();
+				menuPage.NewScreen();
+				dispose();
+			}
+		});
 		
 		JButton btnBack_1 = new JButton("Back");
 		btnBack_1.setForeground(Color.RED);
@@ -119,43 +146,88 @@ public class CustomerPage extends JFrame {
 		btnBack_1.setBackground(Color.WHITE);
 		btnBack_1.setBounds(0, 509, 245, 39);
 		panel.add(btnBack_1);
+		btnBack_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Click log out to go back.");
+			}
+		});
 		
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setBounds(0, 0, 1222, 703);
 		panel.add(lblNewLabel_2);
 		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\brkdn\\Desktop\\men\u00FC.jpg"));
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(366, 33, 709, 84);
-		panel_1.setBackground(Color.WHITE);
-		contentPane.add(panel_1);
-		panel_1.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("Total Balance :");
-		lblNewLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
+		JButton btnSeeBalance = new JButton("See Balance");
+		btnSeeBalance.setFont(new Font("Dialog", Font.PLAIN, 25));
+		btnSeeBalance.setBackground(Color.WHITE);
+		btnSeeBalance.setBounds(0, 141, 245, 39);
+		panel.add(btnSeeBalance);
+		btnSeeBalance.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					int balance = 0;
+					ps = db.getCon().prepareStatement("SELECT balance FROM bank WHERE username=? AND password=?");
+					ps.setString(1, textField_2.getText());
+					ps.setString(2, textField_1.getText());
+					rs = ps.executeQuery();
+					
+					while(rs.next()) {
+						balance = rs.getInt("balance");
+					}
+					JOptionPane.showMessageDialog(null, "Balance is: " + balance);
+					
+				}
+				catch(SQLException sql) {
+					sql.getCause().printStackTrace();
+				}
 			}
 		});
-		lblNewLabel.setForeground(Color.BLACK);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblNewLabel.setBounds(21, 26, 637, 31);
-		panel_1.add(lblNewLabel);
-		
-		textField = new JTextField();
-		textField.setBounds(199, 32, 472, 25);
-		panel_1.add(textField);
-		textField.setColumns(10);
-		
-		JLabel label_1 = new JLabel("");
-		label_1.setIcon(new ImageIcon("C:\\Users\\brkdn\\Desktop\\men\u00FC.jpg"));
-		label_1.setBounds(0, 0, 1222, 703);
-		panel_1.add(label_1);
 		
 		JLabel lblNewLabel_3 = new JLabel("");
 		lblNewLabel_3.setIcon(new ImageIcon("C:\\Users\\brkdn\\Desktop\\men\u00FC.jpg"));
 		lblNewLabel_3.setBounds(0, 0, 1210, 693);
 		contentPane.add(lblNewLabel_3);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setLayout(null);
+		panel_3.setBackground(Color.WHITE);
+		panel_3.setBounds(366, 219, 709, 84);
+		contentPane.add(panel_3);
+		
+		JLabel lblPassword = new JLabel("Password :");
+		lblPassword.setForeground(Color.BLACK);
+		lblPassword.setFont(new Font("Dialog", Font.PLAIN, 25));
+		lblPassword.setBounds(21, 26, 637, 31);
+		panel_3.add(lblPassword);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(199, 32, 472, 25);
+		panel_3.add(textField_1);
+		
+		JLabel label_2 = new JLabel("");
+		label_2.setBounds(0, 0, 1222, 703);
+		panel_3.add(label_2);
+		
+		JPanel panel_4 = new JPanel();
+		panel_4.setLayout(null);
+		panel_4.setBackground(Color.WHITE);
+		panel_4.setBounds(366, 367, 709, 84);
+		contentPane.add(panel_4);
+		
+		JLabel label = new JLabel("Username :");
+		label.setForeground(Color.BLACK);
+		label.setFont(new Font("Dialog", Font.PLAIN, 25));
+		label.setBounds(21, 26, 637, 31);
+		panel_4.add(label);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(199, 32, 472, 25);
+		panel_4.add(textField_2);
+		
+		JLabel label_3 = new JLabel("");
+		label_3.setBounds(0, 0, 1222, 703);
+		panel_4.add(label_3);
 	}
 }

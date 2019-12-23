@@ -18,6 +18,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import java.awt.event.InputMethodListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.InputMethodEvent;
 import java.awt.GridLayout;
@@ -32,11 +34,26 @@ public class Menu extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
-	
+	private PreparedStatement ps;
+	private ResultSet rs;
 	DBConnect db = new DBConnect();
+	private int id;
 
 	//Launch the application
 	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Menu frame = new Menu();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	public static void NewScreen() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -61,16 +78,16 @@ public class Menu extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblPassword = new JLabel("Password");
+		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setForeground(Color.WHITE);
 		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblPassword.setBounds(400, 367, 103, 31);
+		lblPassword.setBounds(321, 367, 182, 31);
 		contentPane.add(lblPassword);
 		
-		JLabel lblUsername = new JLabel("Username");
+		JLabel lblUsername = new JLabel("Username:");
 		lblUsername.setForeground(Color.WHITE);
 		lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblUsername.setBounds(400, 305, 109, 31);
+		lblUsername.setBounds(321, 305, 188, 31);
 		contentPane.add(lblUsername);
 		
 		textField = new JTextField();
@@ -101,19 +118,20 @@ public class Menu extends JFrame {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				if(db.checkUser(textField.getText(),textField_1.getText())) {
-					if(db.accountType(textField.getText(),textField_1.getText()).equals("Admin")){
-						AdminPage adminPage = new AdminPage();
-						adminPage.NewScreen();
-						dispose();
+					switch(db.accountType(textField.getText(),textField_1.getText())) {
+						case "Admin   ":
+							AdminPage adminPage = new AdminPage();
+							adminPage.NewScreen();
+							dispose();
+							break;
+						case "Customer":
+							CustomerPage customerPage = new CustomerPage();
+							customerPage.NewScreen();
+							dispose();
+							break;
+						default:
+							JOptionPane.showMessageDialog(null, "Invalid credentials!");
 					}
-					else if(db.accountType(textField.getText(),textField_1.getText()).equals("Customer")) {
-						CustomerPage customerPage = new CustomerPage();
-						customerPage.NewScreen();
-						dispose();
-					}
-					else
-						JOptionPane.showMessageDialog(null, "Invalid credentils!");
-					
 				}
 				else {
 					JOptionPane.showMessageDialog(null,"Invalid username or password.");
@@ -127,7 +145,7 @@ public class Menu extends JFrame {
 		JLabel label = new JLabel("AydinBank");
 		label.setForeground(Color.WHITE);
 		label.setFont(new Font("Tahoma", Font.BOLD, 35));
-		label.setBounds(537, 228, 188, 43);
+		label.setBounds(537, 228, 322, 43);
 		contentPane.add(label);
 		//Image img = new ImageIcon(this.getClass().getResource("C:\\Users\\brkdn\\Desktop\\ia.jpg")).getImage();
 		

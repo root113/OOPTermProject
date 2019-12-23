@@ -60,7 +60,7 @@ public class DBConnect {
 	}
 	
 	public String accountType(String username,String password) {
-		String accType = "";
+		String accType = null;
 		
 		try {
 			ps = this.con.prepareStatement("SELECT account_type FROM bank WHERE username=? AND password=?;");
