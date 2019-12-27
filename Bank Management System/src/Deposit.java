@@ -28,7 +28,7 @@ public class Deposit extends JFrame {
 	private JTextField textField_2;
 	private PreparedStatement ps;
 	private ResultSet rs;
-	DBConnect db = new DBConnect();
+	DBConnectFactorySingleton db = new DBConnectFactorySingleton();
 
 	//Launch the application
 	public static void NewScreen() {
@@ -144,16 +144,16 @@ public class Deposit extends JFrame {
 			}
 		});
 		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setBounds(0, 0, 245, 675);
-		panel_1.add(lblNewLabel_1);
-		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\brkdn\\Desktop\\men\u00FC.jpg"));
-		
 		JButton btnSave = new JButton("Save");
 		btnSave.setFont(new Font("Dialog", Font.PLAIN, 25));
 		btnSave.setBackground(Color.WHITE);
 		btnSave.setBounds(0, 356, 245, 39);
 		panel_1.add(btnSave);
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon("/home/root113/eclipse-workspace/Project1/img/1.jpeg"));
+		label.setBounds(0, 35, 245, 626);
+		panel_1.add(label);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -205,9 +205,8 @@ public class Deposit extends JFrame {
 		panel_4.add(textField_2);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\brkdn\\Desktop\\men\u00FC.jpg"));
-		lblNewLabel.setBounds(0, 0, 1206, 691);
+		lblNewLabel.setIcon(new ImageIcon("/home/root113/eclipse-workspace/Project1/img/2.jpeg"));
+		lblNewLabel.setBounds(0, -20, 1224, 711);
 		panel.add(lblNewLabel);
 	}
-
 }

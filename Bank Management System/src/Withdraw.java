@@ -25,7 +25,7 @@ public class Withdraw extends JFrame {
 	private JTextField textField_1;
 	private PreparedStatement ps;
 	private ResultSet rs;
-	DBConnect db = new DBConnect();
+	DBConnectFactorySingleton db = new DBConnectFactorySingleton();
 
 	//Launch the application
 	public static void NewScreen() {
@@ -132,7 +132,7 @@ public class Withdraw extends JFrame {
 					ps = db.getCon().prepareStatement("UPDATE bank SET balance=(balance-?) WHERE username=?;");
 					ps.setInt(1, Integer.parseInt(textField_1.getText()));
 					ps.setString(2, textField.getText());
-					rs = ps.executeQuery();
+					ps.execute();
 					
 					JOptionPane.showMessageDialog(null, "Withdrawal successfull.");
 				}
@@ -174,7 +174,7 @@ public class Withdraw extends JFrame {
 		panel_1.add(button_6);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\brkdn\\Desktop\\men\u00FC.jpg"));
+		lblNewLabel_1.setIcon(new ImageIcon("/home/root113/eclipse-workspace/Project1/img/1.jpeg"));
 		lblNewLabel_1.setBounds(0, 37, 245, 636);
 		panel_1.add(lblNewLabel_1);
 		
@@ -211,5 +211,10 @@ public class Withdraw extends JFrame {
 		textField_1.setColumns(10);
 		textField_1.setBounds(274, 26, 403, 31);
 		panel_4.add(textField_1);
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon("/home/root113/eclipse-workspace/Project1/img/2.jpeg"));
+		label.setBounds(0, -15, 1218, 714);
+		panel.add(label);
 	}
 }

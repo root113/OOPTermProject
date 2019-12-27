@@ -38,7 +38,7 @@ public class RegisterPage extends JFrame {
 	private JLabel label_4;
 	private JButton button;
 	private JTextField textField_4;
-	DBConnect db = new DBConnect();
+	DBConnectFactorySingleton db = new DBConnectFactorySingleton();
 	private PreparedStatement ps;
 	private JTextField textField_5;
 
@@ -133,7 +133,7 @@ public class RegisterPage extends JFrame {
 		
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String query = "INSERT INTO bank(id,password,email,phone,name,surname,account_type,username) VALUES(?,?,?,?,?,?,?,?);";
+				String query = "INSERT INTO bank(id,password,email,phone,name,surname,account_type,username,balance) VALUES(?,?,?,?,?,?,?,?,100);";
 				Random rand = new Random();
 				int id = rand.nextInt(10000);
 				
@@ -200,15 +200,15 @@ public class RegisterPage extends JFrame {
 		lblPhone.setBounds(290, 500, 190, 31);
 		contentPane.add(lblPhone);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("/img/manzara3.jpeg"));
-		lblNewLabel.setBounds(0, 0, 1204, 717);
-		contentPane.add(lblNewLabel);
-		
 		textField_5 = new JTextField();
 		textField_5.setFont(new Font("Dialog", Font.PLAIN, 25));
 		textField_5.setColumns(10);
 		textField_5.setBounds(587, 563, 216, 37);
 		contentPane.add(textField_5);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("/home/root113/eclipse-workspace/Project1/img/2.jpeg"));
+		lblNewLabel.setBounds(0, -14, 1204, 734);
+		contentPane.add(lblNewLabel);
 	}
 }

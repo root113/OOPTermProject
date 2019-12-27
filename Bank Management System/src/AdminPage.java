@@ -19,7 +19,6 @@ import javax.swing.ImageIcon;
 public class AdminPage extends JFrame {
 
     private JPanel contentPane;
-    private JTable table;
     private JButton button;
     private JButton button_1;
     private JButton button_2;
@@ -50,16 +49,6 @@ public class AdminPage extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
-        
-        JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(28, 28, 1155, 171);
-        contentPane.add(scrollPane);
-        
-        table = new JTable();
-        table.setBackground(new Color(255, 250, 240));
-        table.setColumnSelectionAllowed(true);
-        table.setCellSelectionEnabled(true);
-        scrollPane.setViewportView(table);
         
         //Comboboxta oldugu gibi burda da bir model olusturuyoruz.
         //Fakat comboboxtan farkli olarak 2 adet dizi aliyor.
@@ -94,24 +83,6 @@ public class AdminPage extends JFrame {
         
         //Dizileri model kismina aktariyoruz.
         TableModel tablemodel=new DefaultTableModel(ikincidizi,ilkdizi);
-        
-        //Modelide Table aktariyoruz.
-        table.setModel(new DefaultTableModel(
-        	new Object[][] {
-        		{null, null, null, null, null, null, null},
-        		{null, null, null, null, null, null, null},
-        		{null, null, null, null, null, null, null},
-        		{null, null, null, null, null, null, null},
-        		{null, null, null, null, null, null, null},
-        		{null, null, null, null, null, null, null},
-        		{null, null, null, null, null, null, null},
-        		{null, null, null, null, null, null, null},
-        		{null, null, null, null, null, null, null},
-        	},
-        	new String[] {
-        		"Name", "Surname", "Account Type", "E-mail", "Phone Number", "Username", "Balance"
-        	}
-        ));
         
         button = new JButton("Withdraw");
         button.addActionListener(new ActionListener() {
@@ -167,7 +138,7 @@ public class AdminPage extends JFrame {
         contentPane.add(button_3);
         
         lblNewLabel = new JLabel("");
-        lblNewLabel.setIcon(new ImageIcon("C:\\Users\\brkdn\\Desktop\\men\u00FC.jpg"));
+        lblNewLabel.setIcon(new ImageIcon("/home/root113/eclipse-workspace/Project1/img/2.jpeg"));
         lblNewLabel.setBounds(0, 0, 1284, 682);
         contentPane.add(lblNewLabel);
         //��

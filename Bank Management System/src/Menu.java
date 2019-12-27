@@ -36,7 +36,7 @@ public class Menu extends JFrame {
 	private JTextField textField_1;
 	private PreparedStatement ps;
 	private ResultSet rs;
-	DBConnect db = new DBConnect();
+	DBConnectFactorySingleton db = new DBConnectFactorySingleton();
 	private int id;
 
 	//Launch the application
@@ -150,7 +150,7 @@ public class Menu extends JFrame {
 		//Image img = new ImageIcon(this.getClass().getResource("C:\\Users\\brkdn\\Desktop\\ia.jpg")).getImage();
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("/img/manzara.jpeg"));
+		lblNewLabel.setIcon(new ImageIcon("/home/root113/eclipse-workspace/Project1/img/2.jpeg"));
 		lblNewLabel.setBounds(0, 0, 1140, 707);
 		contentPane.add(lblNewLabel);
 	}

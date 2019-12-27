@@ -65,8 +65,13 @@ public class ContactCustomer extends JFrame {
 		
 		JButton btnBack = new JButton("Back");
 		btnBack.setFont(new Font("Dialog", Font.BOLD, 25));
-		btnBack.setBounds(268, 297, 133, 45);
+		btnBack.setBounds(123, 528, 133, 45);
 		contentPane.add(btnBack);
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon("/home/root113/eclipse-workspace/Project1/img/contact - Kopya.jpg"));
+		label.setBounds(12, -14, 1177, 712);
+		contentPane.add(label);
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CustomerPage customerPage = new CustomerPage();

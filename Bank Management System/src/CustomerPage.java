@@ -29,7 +29,7 @@ public class CustomerPage extends JFrame {
 	private JPanel contentPane;
 	private PreparedStatement ps;
 	private ResultSet rs;
-	DBConnect db = new DBConnect();
+	DBConnectFactorySingleton db = new DBConnectFactorySingleton();
 	private JTextField textField_1;
 	private JTextField textField_2;
 
@@ -153,9 +153,9 @@ public class CustomerPage extends JFrame {
 		});
 		
 		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setBounds(0, 0, 1222, 703);
+		lblNewLabel_2.setBounds(-12, -30, 1222, 733);
 		panel.add(lblNewLabel_2);
-		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\brkdn\\Desktop\\men\u00FC.jpg"));
+		lblNewLabel_2.setIcon(new ImageIcon("/home/root113/eclipse-workspace/Project1/img/1.jpeg"));
 		
 		JButton btnSeeBalance = new JButton("See Balance");
 		btnSeeBalance.setFont(new Font("Dialog", Font.PLAIN, 25));
@@ -183,11 +183,6 @@ public class CustomerPage extends JFrame {
 			}
 		});
 		
-		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon("C:\\Users\\brkdn\\Desktop\\men\u00FC.jpg"));
-		lblNewLabel_3.setBounds(0, 0, 1210, 693);
-		contentPane.add(lblNewLabel_3);
-		
 		JPanel panel_3 = new JPanel();
 		panel_3.setLayout(null);
 		panel_3.setBackground(Color.WHITE);
@@ -204,10 +199,6 @@ public class CustomerPage extends JFrame {
 		textField_1.setColumns(10);
 		textField_1.setBounds(199, 32, 472, 25);
 		panel_3.add(textField_1);
-		
-		JLabel label_2 = new JLabel("");
-		label_2.setBounds(0, 0, 1222, 703);
-		panel_3.add(label_2);
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setLayout(null);
@@ -229,5 +220,15 @@ public class CustomerPage extends JFrame {
 		JLabel label_3 = new JLabel("");
 		label_3.setBounds(0, 0, 1222, 703);
 		panel_4.add(label_3);
+		
+		JLabel label_1 = new JLabel("");
+		label_1.setIcon(new ImageIcon("/home/root113/eclipse-workspace/Project1/img/2.jpeg"));
+		label_1.setBounds(0, -16, 1212, 709);
+		contentPane.add(label_1);
+		
+		JLabel label_2 = new JLabel("");
+		label_2.setIcon(new ImageIcon("/home/root113/eclipse-workspace/Project1/img/1.jpeg"));
+		label_2.setBounds(366, 207, 709, 84);
+		contentPane.add(label_2);
 	}
 }

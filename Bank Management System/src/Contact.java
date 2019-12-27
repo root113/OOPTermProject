@@ -65,8 +65,13 @@ public class Contact extends JFrame {
 		
 		JButton btnBack = new JButton("Back");
 		btnBack.setFont(new Font("Dialog", Font.BOLD, 25));
-		btnBack.setBounds(268, 297, 133, 45);
+		btnBack.setBounds(144, 557, 133, 45);
 		contentPane.add(btnBack);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("/home/root113/eclipse-workspace/Project1/img/contact - Kopya.jpg"));
+		lblNewLabel.setBounds(0, 0, 1221, 698);
+		contentPane.add(lblNewLabel);
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AdminPage adminPage = new AdminPage();

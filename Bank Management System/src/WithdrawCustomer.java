@@ -25,7 +25,7 @@ public class WithdrawCustomer extends JFrame {
 	private JTextField textField_1;
 	private PreparedStatement ps;
 	private ResultSet rs;
-	DBConnect db = new DBConnect();
+	DBConnectFactorySingleton db = new DBConnectFactorySingleton();
 	private JTextField textField_2;
 
 	//Launch the application
@@ -176,8 +176,9 @@ public class WithdrawCustomer extends JFrame {
 		panel_1.add(button_6);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\brkdn\\Desktop\\men\u00FC.jpg"));
-		lblNewLabel_1.setBounds(0, 37, 245, 636);
+		lblNewLabel_1.setLabelFor(this);
+		lblNewLabel_1.setIcon(new ImageIcon("/home/root113/eclipse-workspace/Project1/img/1.jpeg"));
+		lblNewLabel_1.setBounds(0, 24, 245, 649);
 		panel_1.add(lblNewLabel_1);
 		
 		JPanel panel_3 = new JPanel();
@@ -230,5 +231,10 @@ public class WithdrawCustomer extends JFrame {
 		textField_2.setColumns(10);
 		textField_2.setBounds(198, 26, 479, 31);
 		panel_5.add(textField_2);
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon("/home/root113/eclipse-workspace/Project1/img/2.jpeg"));
+		label.setBounds(-15, -18, 1220, 717);
+		panel.add(label);
 	}
 }

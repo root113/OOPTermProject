@@ -1,6 +1,6 @@
 import java.sql.*;
 
-public class DBConnect {
+public class DBConnectFactorySingleton implements Operations{
 	private Connection con;
 	private Statement st;
 	private ResultSet rs;
@@ -30,7 +30,7 @@ public class DBConnect {
 		this.rs = rs;
 	}
 	
-	public DBConnect(){
+	public DBConnectFactorySingleton(){
 		try {
 			con = DriverManager.getConnection(url,user,password);
 			System.out.println("Connected to the PostgreSQL server successfully.");
@@ -40,7 +40,8 @@ public class DBConnect {
 		}
 	}
 	
-	public boolean checkUser(String username,String password) {
+	@Override
+	public boolean checkUser(String username, String password) {
 		try {
 			ps = this.con.prepareStatement("SELECT * FROM bank WHERE username=? AND password=?;");
 			ps.setString(1, username);
@@ -59,7 +60,8 @@ public class DBConnect {
 		}
 	}
 	
-	public String accountType(String username,String password) {
+	@Override
+	public String accountType(String username, String password) {
 		String accType = null;
 		
 		try {
